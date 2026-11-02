@@ -2,7 +2,7 @@
 // plain verbs module: every named export is one verb function, each carrying a `.spec`
 // ({args, returns, refusal}) and, where it has one, an `.effects` array — the shape
 // computer-system-engine's generic stdio verb server (scripts/serve-verbs-over-stdio.mjs) loads
-// with `--verbs @red-cup-engineering/flatfile-resource-graph-service/flatfile-world-verbs`.
+// with `--verbs @red-cup-engineering/fars-engine/flatfile-world-verbs`.
 // Invents and ports nothing: every verb is a direct call to a function this package already
 // publishes (./lagoon-world's lookWorld/moveInWorld/speakInWorld). The inspect-resource verb is
 // code (it runs the code-development engine's package-resource inspection) and lives in

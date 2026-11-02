@@ -1,5 +1,5 @@
 {
-  "name": "@red-cup-engineering/flatfile-resource-graph-service",
+  "name": "@red-cup-engineering/fars-engine",
   "version": "0.1.12",
   "description": "Source-pinned JSON and flatfile EAVT resource graph with native CLI, provider observations, and closure rules for cycles, orphans, broken links and stubs.",
   "type": "module",
