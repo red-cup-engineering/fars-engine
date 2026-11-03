@@ -3,7 +3,7 @@
 // FACT SCHEMA  "lagoon-observation/1"
 // -----------------------------------
 // Every fact is one strict EAVT row {e, a, v, t} appended to the world trace through
-// eavt-services-section. Rows are APPEND-ONLY and TIME-STAMPED: nothing is overwritten, retracted
+// eavt-engineering-services-section. Rows are APPEND-ONLY and TIME-STAMPED: nothing is overwritten, retracted
 // or deleted. `t` is the observation instant in epoch milliseconds, supplied by the observer
 // (never read from a clock here). The CURRENT value of an observed attribute is the row with the
 // greatest t; the earlier rows remain as history. `since` is the t at which that value was first

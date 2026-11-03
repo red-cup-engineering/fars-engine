@@ -1,6 +1,6 @@
 // legacy-world — carries a world trace written in the old row encoding into the current one.
 //
-// Worlds seeded before eavt-services-section moved to canonical JSON rows were written one row per
+// Worlds seeded before eavt-engineering-services-section moved to canonical JSON rows were written one row per
 // line as base64 of canonical CBOR ({a, e, t, v}). The current reader recovers only JSON rows and
 // silently skips the rest, so such a file reads as an empty world and a fresh seed beside it makes
 // a second, disconnected one. This reads the old lines and appends each as a current row, keeping
