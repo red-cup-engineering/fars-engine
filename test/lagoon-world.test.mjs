@@ -5,11 +5,11 @@ import assert from "node:assert/strict";
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { constitute } from "@red-cup-engineering/eavt-services-section/constitute-entity";
-import { appendEavtRow } from "@red-cup-engineering/eavt-services-section/append-eavt-row";
-import { readEavtEntries } from "@red-cup-engineering/eavt-services-section/read-eavt-entries";
-import { foldEavtEvidence } from "@red-cup-engineering/eavt-services-section/fold-eavt-evidence";
-import { relateEavtRows } from "@red-cup-engineering/eavt-services-section/relate-eavt-rows";
+import { constitute } from "@red-cup-engineering/eavt-engineering-services-section/constitute-entity";
+import { appendEavtRow } from "@red-cup-engineering/eavt-engineering-services-section/append-eavt-row";
+import { readEavtEntries } from "@red-cup-engineering/eavt-engineering-services-section/read-eavt-entries";
+import { foldEavtEvidence } from "@red-cup-engineering/eavt-engineering-services-section/fold-eavt-evidence";
+import { relateEavtRows } from "@red-cup-engineering/eavt-engineering-services-section/relate-eavt-rows";
 import { lookWorld, moveInWorld, speakInWorld } from "../src/lagoon-world.mjs";
 
 function withTrace(fn) {

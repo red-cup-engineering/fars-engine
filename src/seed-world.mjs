@@ -10,9 +10,9 @@
 // address already carries a `constituted` row is skipped, so re-seeding never duplicates rows.
 
 import { readFileSync } from "node:fs";
-import { constitute } from "@red-cup-engineering/eavt-services-section/constitute-entity";
-import { appendEavtRow } from "@red-cup-engineering/eavt-services-section/append-eavt-row";
-import { readEavtEntries } from "@red-cup-engineering/eavt-services-section/read-eavt-entries";
+import { constitute } from "@red-cup-engineering/eavt-engineering-services-section/constitute-entity";
+import { appendEavtRow } from "@red-cup-engineering/eavt-engineering-services-section/append-eavt-row";
+import { readEavtEntries } from "@red-cup-engineering/eavt-engineering-services-section/read-eavt-entries";
 
 /** Read and shape-check a world record from disk. */
 export function readWorldRecord(recordPath) {

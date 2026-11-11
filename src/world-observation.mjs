@@ -43,9 +43,9 @@
 //
 // look reads this through observedStateOf(): per attribute {value, t, since}.
 
-import { constitute } from "@red-cup-engineering/eavt-services-section/constitute-entity";
-import { appendEavtRow } from "@red-cup-engineering/eavt-services-section/append-eavt-row";
-import { readEavtEntries } from "@red-cup-engineering/eavt-services-section/read-eavt-entries";
+import { constitute } from "@red-cup-engineering/eavt-engineering-services-section/constitute-entity";
+import { appendEavtRow } from "@red-cup-engineering/eavt-engineering-services-section/append-eavt-row";
+import { readEavtEntries } from "@red-cup-engineering/eavt-engineering-services-section/read-eavt-entries";
 
 export const OBSERVATION_SCHEMA = "lagoon-observation/1";
 

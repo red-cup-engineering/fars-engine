@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { dataKindDirectory } from "@red-cup-engineering/eavt-services-section/data-artifact-address";
+import { dataKindDirectory } from "@red-cup-engineering/eavt-engineering-services-section/data-artifact-address";
 
 // A SEAVT journal row's v coordinate is only ever a record's own
 // content-identity id (the semiotic EAVT module's seavtOfJson() call sites in

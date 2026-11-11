@@ -3,8 +3,8 @@ import { canonicalize } from "./identity.mjs";
 import { getRecord } from "./record-store.mjs";
 import { TIER_B_RECORD_TYPES, validateRecord } from "./record-types.mjs";
 import { validateWitness } from "./witness.mjs";
-import { logDates, readLog } from "@red-cup-engineering/semiotic-eavt-services-section/store";
-import { dataArtifactFiles } from "@red-cup-engineering/eavt-services-section/data-artifact-listing";
+import { logDates, readLog } from "@red-cup-engineering/semiotic-eavt-engineering-services-section/store";
+import { dataArtifactFiles } from "@red-cup-engineering/eavt-engineering-services-section/data-artifact-listing";
 import { FOUR, four, joinKnowledgeWire } from "@red-cup-engineering/computer-data-engineering-services-section/four";
 import { termToJson } from "@red-cup-engineering/computer-data-engineering-services-section/semiotic-expression-notation/json-codec";
 

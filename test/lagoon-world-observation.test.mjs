@@ -3,7 +3,7 @@ import test from "node:test";
 import { mkdtempSync, rmSync, writeFileSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { readEavtEntries } from "@red-cup-engineering/eavt-services-section/read-eavt-entries";
+import { readEavtEntries } from "@red-cup-engineering/eavt-engineering-services-section/read-eavt-entries";
 import { lookWorld } from "../src/lagoon-world.mjs";
 import { seedWorld } from "../src/seed-world.mjs";
 import { observedStateOf, observedStatesIndex, recordHostObservation } from "../src/world-observation.mjs";

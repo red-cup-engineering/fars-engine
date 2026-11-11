@@ -1,9 +1,9 @@
-import { appendEavtRow } from "@red-cup-engineering/eavt-services-section/append-eavt-row";
-import { constitute } from "@red-cup-engineering/eavt-services-section/constitute-entity";
-import { foldEavtEvidence } from "@red-cup-engineering/eavt-services-section/fold-eavt-evidence";
-import { entities } from "@red-cup-engineering/eavt-services-section/list-entities";
-import { readEavtEntries } from "@red-cup-engineering/eavt-services-section/read-eavt-entries";
-import { relateEavtRows } from "@red-cup-engineering/eavt-services-section/relate-eavt-rows";
+import { appendEavtRow } from "@red-cup-engineering/eavt-engineering-services-section/append-eavt-row";
+import { constitute } from "@red-cup-engineering/eavt-engineering-services-section/constitute-entity";
+import { foldEavtEvidence } from "@red-cup-engineering/eavt-engineering-services-section/fold-eavt-evidence";
+import { entities } from "@red-cup-engineering/eavt-engineering-services-section/list-entities";
+import { readEavtEntries } from "@red-cup-engineering/eavt-engineering-services-section/read-eavt-entries";
+import { relateEavtRows } from "@red-cup-engineering/eavt-engineering-services-section/relate-eavt-rows";
 import { observedStatesIndex } from "./world-observation.mjs";
 
 function attributesOf(address, rows) {

@@ -7,7 +7,7 @@ import { putRecord } from "../kernel/record-store.mjs";
 import { makeWitness } from "../kernel/witness.mjs";
 import { parseFrontmatter } from "../substrate/flatfile.mjs";
 import { classify } from "./kind.mjs";
-import { append } from "@red-cup-engineering/semiotic-eavt-services-section/store";
+import { append } from "@red-cup-engineering/semiotic-eavt-engineering-services-section/store";
 
 function deepEqual(a, b) {
   return JSON.stringify(a) === JSON.stringify(b);

@@ -11,8 +11,8 @@
 
 import { readFileSync, existsSync } from "node:fs";
 import { decodeCanonical } from "@red-cup-engineering/cbor-services-section";
-import { appendEavtRow } from "@red-cup-engineering/eavt-services-section/append-eavt-row";
-import { readEavtEntries } from "@red-cup-engineering/eavt-services-section/read-eavt-entries";
+import { appendEavtRow } from "@red-cup-engineering/eavt-engineering-services-section/append-eavt-row";
+import { readEavtEntries } from "@red-cup-engineering/eavt-engineering-services-section/read-eavt-entries";
 
 const key = (row) => JSON.stringify([row.e, row.a, row.v, row.t]);
 

@@ -1,10 +1,10 @@
-import { createRelationWeb, relationKey } from "@red-cup-engineering/eavt-services-section/relation-web";
+import { createRelationWeb, relationKey } from "@red-cup-engineering/eavt-engineering-services-section/relation-web";
 import {
   foldIndependentEvidence,
   identifyContentAddressedRow,
   independentEvidenceRow,
   unique,
-} from "@red-cup-engineering/eavt-services-section";
+} from "@red-cup-engineering/eavt-engineering-services-section";
 import { four } from "@red-cup-engineering/computer-data-engineering-services-section/four";
 import { admitCell, cell, cellSet, hasEvidence } from "@red-cup-engineering/signcell/cell";
 

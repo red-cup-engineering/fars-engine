@@ -1,9 +1,9 @@
-import { entities, readEavtEntries, relateFromEavtRows } from "@red-cup-engineering/eavt-services-section";
+import { entities, readEavtEntries, relateFromEavtRows } from "@red-cup-engineering/eavt-engineering-services-section";
 import { runDischarge, runLint, runReplay, runShow, runValidate, runWitness, runWitnessLog } from "../src/cli/verbs.mjs";
 import { getRecord } from "../src/kernel/record-store.mjs";
 import { replayEventLog, serializeState } from "../src/kernel/replay.mjs";
 import { loadFlatfiles } from "../src/substrate/read-flatfiles.mjs";
-import { readLog } from "@red-cup-engineering/semiotic-eavt-services-section/store";
+import { readLog } from "@red-cup-engineering/semiotic-eavt-engineering-services-section/store";
 import { jsonSourcesProvider } from "../src/adapters/json-sources.mjs";
 import { composeProviders, serializeComposition } from "../src/provider/compositor.mjs";
 import { observeJsonResourceLifecycle, receiveJsonResourceLifecycleFiles } from "../src/adapters/json-resource-lifecycle.mjs";
