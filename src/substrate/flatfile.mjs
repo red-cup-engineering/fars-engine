@@ -1,4 +1,4 @@
-import { readMarkdownFrontmatter } from "@red-cup-engineering/read-markdown-frontmatter-service";
+import { readMarkdownFrontmatter } from "@red-cup-engineering/markdown-engineering-services-section/read-markdown-frontmatter";
 
 export class FrontmatterError extends Error {}
 
