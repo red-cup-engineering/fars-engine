@@ -5,7 +5,7 @@ import {
   independentEvidenceRow,
   unique,
 } from "@red-cup-engineering/eavt-engineering-services-section";
-import { four } from "@red-cup-engineering/computer-data-engineering-services-section/four";
+import { four } from "@red-cup-engineering/metrologic/four";
 import { admitCell, cell, cellSet, hasEvidence } from "@red-cup-engineering/signcell/cell";
 
 const freezeList = (values) => Object.freeze([...values]);

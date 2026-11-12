@@ -5,8 +5,8 @@ import { TIER_B_RECORD_TYPES, validateRecord } from "./record-types.mjs";
 import { validateWitness } from "./witness.mjs";
 import { logDates, readLog } from "@red-cup-engineering/semiotic-eavt-engineering-services-section/store";
 import { dataArtifactFiles } from "@red-cup-engineering/eavt-engineering-services-section/data-artifact-listing";
-import { FOUR, four, joinKnowledgeWire } from "@red-cup-engineering/computer-data-engineering-services-section/four";
-import { termToJson } from "@red-cup-engineering/computer-data-engineering-services-section/semiotic-expression-notation/json-codec";
+import { FOUR, four, joinKnowledgeWire } from "@red-cup-engineering/metrologic/four";
+import { termToJson } from "@red-cup-engineering/computer-code-engine/semiotic-expression-notation/json-codec";
 
 // Deterministic replay: fold the append-only event log into in-memory
 // state (design spec S4, S11; Addendum ruling 5). "Events are the source

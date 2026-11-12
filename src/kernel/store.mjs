@@ -1,4 +1,4 @@
-import { FOUR } from "@red-cup-engineering/computer-data-engineering-services-section/four";
+import { FOUR } from "@red-cup-engineering/metrologic/four";
 
 function cellKey(subject, predicate, object) {
   return JSON.stringify([subject, predicate, object]);
