@@ -10,7 +10,7 @@
 // appended again.
 
 import { readFileSync, existsSync } from "node:fs";
-import { decodeCanonical } from "@red-cup-engineering/cbor-services-section";
+import { decodeCanonical } from "@red-cup-engineering/cbor-engineering-services-section";
 import { appendEavtRow } from "@red-cup-engineering/eavt-engineering-services-section/append-eavt-row";
 import { readEavtEntries } from "@red-cup-engineering/eavt-engineering-services-section/read-eavt-entries";
 

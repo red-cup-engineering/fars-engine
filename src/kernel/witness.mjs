@@ -1,4 +1,4 @@
-import { isNiUri } from "@red-cup-engineering/uri-services-section/ni-uri";
+import { isNiUri } from "@red-cup-engineering/uri-engineering-services-section/ni-uri";
 import { isValidKind } from "../operator/kind.mjs";
 import { identityOfRecord } from "./identity.mjs";
 import { four, witnessBit } from "@red-cup-engineering/metrologic/four";

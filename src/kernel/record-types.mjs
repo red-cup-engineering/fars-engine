@@ -1,4 +1,4 @@
-import { isNiUri } from "@red-cup-engineering/uri-services-section/ni-uri";
+import { isNiUri } from "@red-cup-engineering/uri-engineering-services-section/ni-uri";
 import { identity, identityOfRecord } from "./identity.mjs";
 
 // The Tier B institutional-fact enumeration (design spec §3) is closed at

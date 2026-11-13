@@ -81,7 +81,7 @@ test("the record-host-observation verb carries the schema name and refuses a sta
 }));
 
 test("migrate-legacy-world carries base64-CBOR rows into the current encoding unchanged, once", async () => {
-  const { encodeCanonical } = await import("@red-cup-engineering/cbor-services-section");
+  const { encodeCanonical } = await import("@red-cup-engineering/cbor-engineering-services-section");
   return withTrace((trace, dir) => {
     const legacy = path.join(dir, "legacy.eavt");
     const rows = [
