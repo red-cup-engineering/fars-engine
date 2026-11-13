@@ -1,4 +1,4 @@
-import { canonicalizeSemioticJson } from "@red-cup-engineering/computer-content-address-engineering-services-section/semiotic-content-address";
+import { canonicalizeSemioticJson } from "@red-cup-engineering/computer-content-address-engineering-services-section/semiotic-content-address-system";
 import { makeNiUri, verifyNiUri } from "@red-cup-engineering/uri-engineering-services-section/ni-uri";
 
 // canonicalizeSemioticJson NFC-normalizes strings and keys, rejects
