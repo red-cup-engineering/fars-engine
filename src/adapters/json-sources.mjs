@@ -1,6 +1,6 @@
 import { admitSourceSelections as sourceSelections, readPinnedTextSources } from "./pinned-sources.mjs";
 import { cell } from "@red-cup-engineering/signcell/cell";
-import { parseJsonValue } from "@red-cup-engineering/json-engineering-services-section/parse-json-value";
+import { parseJsonValue } from "@red-cup-engineering/json-engine/parse-json-value";
 import { makeCell } from "../kernel/cells.mjs";
 import { projectAttributeCells } from "../provider/attribute-projection.mjs";
 import { defineProvider } from "../provider/provider.mjs";

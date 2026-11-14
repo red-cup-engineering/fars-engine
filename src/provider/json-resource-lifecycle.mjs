@@ -1,6 +1,6 @@
 import { cell, cellSet, retainedCarrier, semanticId } from "@red-cup-engineering/signcell/cell";
 import { admit, defineType, typeIdentity } from "@red-cup-engineering/signcell/type-system";
-import { parseJsonValue } from "@red-cup-engineering/json-engineering-services-section/parse-json-value";
+import { parseJsonValue } from "@red-cup-engineering/json-engine/parse-json-value";
 import { sourceNamespace } from "./source-namespace.mjs";
 import { encodeJsonGraphValue, projectAttributeCells } from "./attribute-projection.mjs";
 import { admitExactTextSourceRevisions } from "./exact-source-revision.mjs";

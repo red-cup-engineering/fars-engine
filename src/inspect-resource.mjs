@@ -1,4 +1,4 @@
-import { canonicalJson } from "@red-cup-engineering/json-engineering-services-section/canonical-json";
+import { canonicalJson } from "@red-cup-engineering/json-engine/canonical-json";
 import { admit, defineType } from "@red-cup-engineering/signcell/type-system";
 import { composeProviders, queryRelations, serializeComposition } from "./provider/compositor.mjs";
 import { defineProvider, validateProviderOutcome } from "./provider/provider.mjs";
