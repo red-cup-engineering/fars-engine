@@ -16,7 +16,7 @@ import * as lagoonWorld from "../src/lagoon-world.mjs";
 import { readWorldRecord, seedWorld } from "../src/seed-world.mjs";
 import { migrateLegacyWorld } from "../src/legacy-world.mjs";
 import { recordHostObservation, OBSERVATION_SCHEMA } from "../src/world-observation.mjs";
-import { REFUSAL_SCHEMA } from "@red-cup-engineering/computer-data-engineering-services-section/operation-refusal-schema";
+import { REJECTION_SCHEMA } from "@red-cup-engineering/computer-data-engineering-services-section/operation-refusal-schema";
 
 const ROW_SCHEMA = {
   type: "object",
@@ -45,7 +45,7 @@ look.spec = {
     },
     required: ["address", "placeAttributes", "things"],
   },
-  refusal: REFUSAL_SCHEMA,
+  refusal: REJECTION_SCHEMA,
 };
 look.effects = ["filesystem:read"];
 
@@ -69,7 +69,7 @@ go.spec = {
     properties: { address: { type: "string" }, actor: { type: "string" }, place: { type: "string" } },
     required: ["address", "actor", "place"],
   },
-  refusal: REFUSAL_SCHEMA,
+  refusal: REJECTION_SCHEMA,
 };
 go.effects = ["filesystem:read", "filesystem:write"];
 
@@ -94,7 +94,7 @@ say.spec = {
     properties: { address: { type: "string" }, place: { type: "string" }, genesisRow: ROW_SCHEMA },
     required: ["address", "place", "genesisRow"],
   },
-  refusal: REFUSAL_SCHEMA,
+  refusal: REJECTION_SCHEMA,
 };
 say.effects = ["filesystem:write"];
 
@@ -115,7 +115,7 @@ seedWorldVerb.spec = {
     properties: { results: { type: "array", items: { type: "object", properties: { address: { type: "string" }, skipped: { type: "boolean" } }, required: ["address", "skipped"] } } },
     required: ["results"],
   },
-  refusal: REFUSAL_SCHEMA,
+  refusal: REJECTION_SCHEMA,
 };
 seedWorldVerb.effects = ["filesystem:read", "filesystem:write"];
 
@@ -135,7 +135,7 @@ recordHostObservationVerb.spec = {
     properties: { schema: { type: "string" }, host: { type: "string" }, generation: {}, units: { type: "number" }, attempts: { type: "number" }, rows: { type: "number" } },
     required: ["schema", "host", "units", "attempts", "rows"],
   },
-  refusal: REFUSAL_SCHEMA,
+  refusal: REJECTION_SCHEMA,
 };
 recordHostObservationVerb.effects = ["filesystem:read", "filesystem:write"];
 
@@ -151,7 +151,7 @@ migrateLegacyWorldVerb.spec = {
     properties: { read: { type: "number" }, appended: { type: "number" }, skipped: { type: "number" }, refused: { type: "array" } },
     required: ["read", "appended", "skipped", "refused"],
   },
-  refusal: REFUSAL_SCHEMA,
+  refusal: REJECTION_SCHEMA,
 };
 migrateLegacyWorldVerb.effects = ["filesystem:read", "filesystem:write"];
 
