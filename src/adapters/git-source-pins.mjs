@@ -1,10 +1,11 @@
+import { execGitSync } from "@red-cup-engineering/git-engine/git-process";
 /**
  * Deterministic, effectful Git-tree source selector for the original FARS
  * lifecycle reader. Git blob identity proves repository provenance; the
  * emitted SHA-256 pins are subsequently rechecked by FARS before Cell creation.
  * This makes no merge, Work, deployment or usage claim.
  */
-import { execFileSync } from "node:child_process";
+
 import { createHash } from "node:crypto";
 import { lstatSync, readFileSync, realpathSync } from "node:fs";
 import { extname, resolve } from "node:path";
@@ -13,7 +14,7 @@ import { exactSourceRevision, MAX_BATCH_BYTES, MAX_SOURCE_BYTES, REPOSITORY_TEXT
 const SAFE_NAME = /^(?!\/)(?!.*(?:^|\/)\.\.(?:\/|$))[^\0]+$/u;
 const MAX_GIT_TREE_BYTES = 64 * MAX_SOURCE_BYTES;
 function git(root, ...args) {
-  return execFileSync("git", ["--no-replace-objects", "-C", root, ...args], {
+  return execGitSync(["--no-replace-objects", "-C", root, ...args], {
     encoding: "buffer", maxBuffer: MAX_GIT_TREE_BYTES, timeout: 30_000,
     stdio: ["ignore", "pipe", "pipe"],
     // The purported committed tree must never be silently replaced by a

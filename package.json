@@ -8,6 +8,7 @@
     "node": ">=22.18"
   },
   "dependencies": {
+    "@red-cup-engineering/git-engine": "^0.1.11-dev.0",
     "@red-cup-engineering/computer-code-engine": "^0.1.0",
     "@red-cup-engineering/computer-data-engineering-services-section": "^0.7.4",
     "@red-cup-engineering/computer-filepath-engineering-services-section": "^0.1.3",

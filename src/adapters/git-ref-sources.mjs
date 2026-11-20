@@ -1,8 +1,9 @@
+import { execGitSync } from "@red-cup-engineering/git-engine/git-process";
 /** Read original committed Git objects from unfinished branch/archive refs.
  * Acquisition only: the existing FARS JSON lifecycle and SignCell own projection.
  * A ref's name is not evidence of archival standing or executed consumers.
  */
-import { execFileSync } from 'node:child_process';
+
 import { createHash } from 'node:crypto';
 import { realpathSync } from 'node:fs';
 import { extname } from 'node:path';
@@ -19,7 +20,7 @@ const sourcePath = path => typeof path === 'string' && path.length > 0 &&
 function readGit(root, args, input) {
   const environment = Object.fromEntries(Object.entries(process.env)
     .filter(([name]) => !name.startsWith('GIT_')));
-  return execFileSync('git', ['--no-replace-objects', '-C', root, ...args], {
+  return execGitSync(['--no-replace-objects', '-C', root, ...args], {
     encoding: 'buffer', maxBuffer: MAX_TREE_BYTES, timeout: 30_000,
     stdio: ['pipe', 'pipe', 'pipe'],
     ...(input === undefined ? {} : { input }),
