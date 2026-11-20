@@ -2,7 +2,7 @@ import { exactSourceRevision, MAX_SOURCE_BYTES, MAX_BATCH_BYTES, REPOSITORY_TEXT
 import { constants } from "node:fs";
 import { lstat, open, realpath } from "node:fs/promises";
 import { resolve, extname } from "node:path";
-import { validateRelativePosixFilepath } from "@red-cup-engineering/computer-filepath-engineering-services-section/admit-relative-posix-filepath";
+import { admitRelativePosixFilepath } from "@red-cup-engineering/computer-filepath-engineering-services-section/admit-relative-posix-filepath";
 import { retainedCarrier } from "@red-cup-engineering/semiotic-content-address-system";
 
 export { MAX_SOURCE_BYTES, MAX_BATCH_BYTES, REPOSITORY_TEXT_EXTENSIONS };
@@ -17,7 +17,7 @@ export function admitSourceSelections(sources, extensions = [".json"]) {
     if (item === null || typeof item !== "object" || Array.isArray(item) ||
         Object.keys(item).sort().join() !== "digest,path")
       throw new TypeError("every source requires only path and digest");
-    const path = validateRelativePosixFilepath(item.path);
+    const path = admitRelativePosixFilepath(item.path);
     if (!allowed.has(extname(path)) || path.split("/").some(part =>
       ["..", ".git", "node_modules", ".env"].includes(part)))
       throw new TypeError("selected sources must be normalized admitted records, not runtime or credential paths");

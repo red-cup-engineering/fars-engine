@@ -1,4 +1,4 @@
-import { validateRelativePosixFilepath } from "@red-cup-engineering/computer-filepath-engineering-services-section/admit-relative-posix-filepath";
+import { admitRelativePosixFilepath } from "@red-cup-engineering/computer-filepath-engineering-services-section/admit-relative-posix-filepath";
 
 /** One source-owned exact-byte selector for FARS JSON and Markdown providers.
  * No claim, workplace, incumbent, or real-world authority follows from a pin.
@@ -13,7 +13,7 @@ export function sourceSelections(sources, { extension = ".json" } = {}) {
     if (!item || typeof item !== "object" || Array.isArray(item) ||
         Object.keys(item).some(key => !["path", "digest"].includes(key)))
       throw new TypeError("every source requires only path and digest");
-    const path = validateRelativePosixFilepath(item.path);
+    const path = admitRelativePosixFilepath(item.path);
     if (!path.endsWith(extension) || path.split("/").some(part =>
         ["..", ".git", "node_modules", ".env"].includes(part))) {
       throw new TypeError(`selected sources must be normalized ${type} records, not runtime or credential paths`);
