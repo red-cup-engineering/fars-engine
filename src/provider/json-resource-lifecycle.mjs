@@ -4,7 +4,7 @@ import { admit, defineType, typeIdentity } from "@red-cup-engineering/typed-cont
 import { parseJsonValue } from "@red-cup-engineering/json-engine/parse-json-value";
 import { sourceNamespace } from "./source-namespace.mjs";
 import { encodeJsonGraphValue, projectAttributeCells } from "./attribute-projection.mjs";
-import { admitExactTextSourceRevisions } from "./exact-source-revision.mjs";
+import { validateExactTextSourceRevisions } from "./exact-source-revision.mjs";
 import { jsonLinesOccurrences } from "./jsonl-occurrences.mjs";
 
 const RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
@@ -39,7 +39,7 @@ function links(value) {
 /** Pure receiving over exact acquired text. References are observations, not execution proofs. */
 export function analyzeJsonResourceLifecycle({ namespace, files }) {
   const owner = sourceNamespace(namespace), sources = retainedCarrier(files);
-  admitExactTextSourceRevisions(sources);
+  validateExactTextSourceRevisions(sources);
   const ordered = [...sources].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
   // JSONL is a succession of separately witnessed source occurrences, not
   // one unparseable JSON document or an inert file silently omitted by FARS.
@@ -112,11 +112,11 @@ export function analyzeJsonResourceLifecycle({ namespace, files }) {
             schema: declaration, references: schemaDocuments.filter(source => source.value.$id !== declaration.$id).map(source => source.value) });
           if (!result.ok) schema = { status: "invalid-schema", schemaUri, refusal: result.refusal };
           else {
-            const admitted = admit(result.value, document.value);
-            schema = { status: admitted.ok ? "admitted" : "rejected", schemaUri,
+            const validated = admit(result.value, document.value);
+            schema = { status: validated.ok ? "admitted" : "rejected", schemaUri,
               declarationIdentity: typeIdentity(result.value),
               sourceDeclarations: schemaSources.map(source => ({ sourcePath: source.path, contentDigest: source.revision })),
-              ...(admitted.ok ? {} : { refusal: admitted.refusal }) };
+              ...(validated.ok ? {} : { refusal: validated.refusal }) };
             supplied = declaration;
           }
         } catch (error) { schema = { status: "invalid-schema", schemaUri, reason: error.message }; }

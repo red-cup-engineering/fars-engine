@@ -41,7 +41,7 @@ export function exactSourceRevision(source) {
 }
 
 /** Refuse oversized pure source selections before any Cell or graph projection. */
-export function admitExactTextSourceRevisions(sources) {
+export function validateExactTextSourceRevisions(sources) {
   if (!Array.isArray(sources) || sources.length < 1 || sources.length > 4096)
     throw new TypeError('JSON lifecycle requires a bounded exact source snapshot');
   let total = 0;

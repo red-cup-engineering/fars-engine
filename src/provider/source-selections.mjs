@@ -9,7 +9,7 @@ export function sourceSelections(sources, { extension = ".json" } = {}) {
   const type = extension === ".json" ? "JSON" : "Markdown";
   if (!Array.isArray(sources) || sources.length < 1 || sources.length > 4096)
     throw new TypeError(`select from 1 to 4096 source-pinned ${type} records`);
-  const admitted = sources.map(item => {
+  const validated = sources.map(item => {
     if (!item || typeof item !== "object" || Array.isArray(item) ||
         Object.keys(item).some(key => !["path", "digest"].includes(key)))
       throw new TypeError("every source requires only path and digest");
@@ -22,7 +22,7 @@ export function sourceSelections(sources, { extension = ".json" } = {}) {
       throw new TypeError("every source must carry its owner's exact SHA-256 digest");
     return Object.freeze({ path, digest: item.digest });
   });
-  if (new Set(admitted.map(source => source.path)).size !== admitted.length)
+  if (new Set(validated.map(source => source.path)).size !== validated.length)
     throw new TypeError(`duplicate ${type} source path`);
-  return Object.freeze([...admitted].sort((a, b) => a.path.localeCompare(b.path)));
+  return Object.freeze([...validated].sort((a, b) => a.path.localeCompare(b.path)));
 }

@@ -8,7 +8,7 @@ import { retainedCarrier } from "@red-cup-engineering/semiotic-content-address-s
 export { MAX_SOURCE_BYTES, MAX_BATCH_BYTES, REPOSITORY_TEXT_EXTENSIONS };
 export const MAX_SOURCE_COUNT = 4096;
 
-export function admitSourceSelections(sources, extensions = [".json"]) {
+export function validateSourceSelections(sources, extensions = [".json"]) {
   const selected = retainedCarrier(sources);
   if (!Array.isArray(selected) || selected.length < 1 || selected.length > MAX_SOURCE_COUNT)
     throw new TypeError("select from 1 to 4096 source-pinned records");
@@ -33,7 +33,7 @@ export function admitSourceSelections(sources, extensions = [".json"]) {
 /** One original pinned-file admission, shared by JSON and lifecycle readers. */
 export async function readPinnedTextSources({ root, sources, extensions = [".json"] }) {
   if (typeof root !== "string" || !root.trim()) throw new TypeError("source root is required");
-  const selected = admitSourceSelections(sources, extensions);
+  const selected = validateSourceSelections(sources, extensions);
   const sourceRoot = await realpath(root), records = [];
   let total = 0;
   for (const { path, digest } of selected) {

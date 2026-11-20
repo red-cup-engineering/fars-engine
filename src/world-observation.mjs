@@ -138,7 +138,7 @@ export function recordHostObservation({ path, status, t, observer = "status" }) 
   // The LAGOON producer names desired systemd unit contents separately from
   // evidence of the live process's source generation. A damaged or foreign
   // witness refuses before any durable EAVT World append.
-  const admittedWitnesses = new Set(["process-executable-observed",
+  const validatedWitnesses = new Set(["process-executable-observed",
     "process-command-references-generation",
     "process-environment-references-generation", "unverified"]);
   const witnessedUnits = new Set();
@@ -148,7 +148,7 @@ export function recordHostObservation({ path, status, t, observer = "status" }) 
         witnessedUnits.has(row.unit)) throw new TypeError("invalid or repeated observed unit");
     witnessedUnits.add(row.unit);
     if (row.generationWitness !== undefined &&
-        (!admittedWitnesses.has(row.generationWitness) ||
+        (!validatedWitnesses.has(row.generationWitness) ||
          (row.generationWitness !== "unverified" &&
           (row.state !== "active" || !STORE.test(status.live?.generation ?? "")))))
       throw new TypeError("running-generation witness lacks original active unit or selected immutable release");
