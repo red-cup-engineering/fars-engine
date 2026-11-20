@@ -1,3 +1,4 @@
+import { isRecord } from "@red-cup-engineering/signcell/values";
 import { cell, cellSet } from "@red-cup-engineering/signcell";
 import { retainedCarrier, semanticId } from "@red-cup-engineering/semiotic-content-address-system";
 import { admit, defineType, typeIdentity } from "@red-cup-engineering/typed-content";
@@ -16,7 +17,7 @@ const NAMESPACE = "urn:fars:json-resource-lifecycle:";
 const MAX_CELLS = 65_536;
 const MAX_PROPERTIES = 4096;
 const opaque = key => ["id", "val", "data"].includes(key) || /^foo_\d+$/u.test(key);
-const record = value => value !== null && typeof value === "object" && !Array.isArray(value);
+
 const text = value => typeof value === "string" && value.trim().length > 0;
 const iri = value => typeof value === "string" && /^[A-Za-z][A-Za-z0-9+.-]*:[^\s]*$/u.test(value);
 const escapePointer = key => String(key).replaceAll("~", "~0").replaceAll("/", "~1");
@@ -26,13 +27,13 @@ export const jsonSourceFocus = (namespace, path) =>
   `urn:fars:source-json:${encodeURIComponent(sourceNamespace(namespace))}:${encodeURIComponent(path)}`;
 
 function declarations(value) {
-  if (Array.isArray(value)) return value.filter(record);
-  if (!record(value)) return [];
-  return [value, ...(Array.isArray(value["@graph"]) ? value["@graph"].filter(record) : [])];
+  if (Array.isArray(value)) return value.filter(isRecord);
+  if (!isRecord(value)) return [];
+  return [value, ...(Array.isArray(value["@graph"]) ? value["@graph"].filter(isRecord) : [])];
 }
 function links(value) {
   const values = Array.isArray(value) ? value : [value];
-  return values.filter(item => record(item) && Object.keys(item).length === 1 && iri(item["@id"]))
+  return values.filter(item => isRecord(item) && Object.keys(item).length === 1 && iri(item["@id"]))
     .map(item => item["@id"]);
 }
 
@@ -65,7 +66,7 @@ export function analyzeJsonResourceLifecycle({ namespace, files }) {
         resource: `${focus}:${source.revision}${row ? ":" + row : ""}` };
     });
   });
-  const schemaDocuments = documents.filter(source => record(source.value) &&
+  const schemaDocuments = documents.filter(source => isRecord(source.value) &&
     source.value.$schema === META && iri(source.value.$id));
   const schemas = new Map();
   for (const document of schemaDocuments) {
@@ -97,7 +98,7 @@ export function analyzeJsonResourceLifecycle({ namespace, files }) {
     const intents = assertions.filter(row => row.resource === document.focus).map(row =>
       Object.freeze({ role: row.role, activity: row.activity, declarationPath: row.source.path,
         declarationDigest: row.source.revision }));
-    const schemaUri = record(document.value) && text(document.value.$schema) ? document.value.$schema : null;
+    const schemaUri = isRecord(document.value) && text(document.value.$schema) ? document.value.$schema : null;
     const schemaSources = schemaUri === null ? [] : schemas.get(schemaUri) ?? [];
     let schema = { status: schemaUri === null ? "undeclared" : "unresolved", schemaUri }, supplied = null;
     if (schemaDocuments.includes(document)) schema = { status: "schema-document", schemaUri: document.value.$id };
@@ -164,18 +165,18 @@ export function analyzeJsonResourceLifecycle({ namespace, files }) {
             schema: tuple ? current.schema.prefixItems[index] : current.schema?.items,
             schemaPointer: tuple ? `${current.schemaPointer}/prefixItems/${index}` : `${current.schemaPointer}/items` });
         });
-      } else if (record(current.value)) {
+      } else if (isRecord(current.value)) {
         const keys = Object.keys(current.value).sort();
         if (visits + pending.length + keys.length > MAX_PROPERTIES)
           throw new RangeError("JSON lifecycle exceeds its 4096-node structural observation budget");
         for (const key of keys) {
           if (properties.length >= MAX_PROPERTIES) throw new RangeError("JSON lifecycle exceeds its 4096-property observation budget");
           const pointer = `${current.pointer}/${escapePointer(key)}`;
-          const propertySchema = record(current.schema?.properties) && Object.hasOwn(current.schema.properties, key)
+          const propertySchema = isRecord(current.schema?.properties) && Object.hasOwn(current.schema.properties, key)
             ? current.schema.properties[key] : null;
           const schemaPointer = `${current.schemaPointer}/properties/${escapePointer(key)}`;
           const definedBy = propertySchema !== null && schemaUri !== null ? reference(schemaUri, schemaPointer) : null;
-          const described = record(propertySchema) && (text(propertySchema.title) || text(propertySchema.description));
+          const described = isRecord(propertySchema) && (text(propertySchema.title) || text(propertySchema.description));
           const property = Object.freeze({ pointer, key, definedBy, documented: Boolean(described),
             opaqueWithoutDefinition: opaque(key) && !described });
           properties.push(property);
@@ -190,7 +191,7 @@ export function analyzeJsonResourceLifecycle({ namespace, files }) {
     }
     // Structural admission precedes the original attribute projection, whose
     // array-occurrence expansion must never receive an over-budget document.
-    if (record(document.value)) for (const at of projectAttributeCells({ subject: document.resource,
+    if (isRecord(document.value)) for (const at of projectAttributeCells({ subject: document.resource,
       resource: document.resource, attributes: document.value })) add(at.subject, at.predicate, at.object, witness);
     const actions = [];
     if (classification === "unclaimed-in-snapshot") actions.push({ action: "bind-runtime-consumer",

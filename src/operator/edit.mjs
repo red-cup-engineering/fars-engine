@@ -1,3 +1,4 @@
+import { isEqual } from "@red-cup-engineering/signcell/values";
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { replaceMarkdownLinkTarget } from "@red-cup-engineering/markdown-engineering-services-section/replace-markdown-link-target";
@@ -9,9 +10,7 @@ import { parseFrontmatter } from "../substrate/flatfile.mjs";
 import { classify } from "./kind.mjs";
 import { append } from "@red-cup-engineering/semiotic-eavt-engineering-services-section/store";
 
-function deepEqual(a, b) {
-  return JSON.stringify(a) === JSON.stringify(b);
-}
+
 
 // dumpMarkdownFrontmatter drops the fence entirely for an empty frontmatter
 // object (matching markdown-engineering's own mutate law), but this package's
@@ -44,8 +43,8 @@ export function addItem(fm, key, item) {
   if (cur === undefined || cur === null) {
     out[key] = [item];
   } else if (Array.isArray(cur)) {
-    if (!cur.some((x) => deepEqual(x, item))) out[key] = [...cur, item];
-  } else if (!deepEqual(cur, item)) {
+    if (!cur.some((x) => isEqual(x, item))) out[key] = [...cur, item];
+  } else if (!isEqual(cur, item)) {
     out[key] = [cur, item];
   }
   return out;
@@ -65,10 +64,10 @@ export function removeItem(fm, key, item = null) {
   }
   const cur = out[key];
   if (Array.isArray(cur)) {
-    const next = cur.filter((x) => !deepEqual(x, item));
+    const next = cur.filter((x) => !isEqual(x, item));
     if (next.length === 0) delete out[key];
     else out[key] = next;
-  } else if (deepEqual(cur, item)) {
+  } else if (isEqual(cur, item)) {
     delete out[key];
   }
   return out;
@@ -139,7 +138,7 @@ function applyFmEdit(root, target, operator, transform, details, options) {
   const absPath = join(root, target);
   const { text: oldText, fm, body } = readNote(absPath);
   const newFm = transform(fm);
-  if (deepEqual(newFm, fm)) return { changed: false, operator, target };
+  if (isEqual(newFm, fm)) return { changed: false, operator, target };
   const newText = renderFlatfile(newFm, body);
   return completeEdit({ root, absPath, target, operator, oldText, newText, details, dryRun, agent, timestamp, channel, settlement });
 }

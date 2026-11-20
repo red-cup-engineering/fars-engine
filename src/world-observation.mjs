@@ -1,3 +1,4 @@
+import { isEqual } from "@red-cup-engineering/signcell/values";
 // world-observation — what LAGOON has observed of its hosts, recorded as world facts.
 //
 // FACT SCHEMA  "lagoon-observation/1"
@@ -78,9 +79,9 @@ function foldObservedAttributes(byAttribute) {
   for (const [attribute, list] of byAttribute) {
     list.sort((left, right) => left.t - right.t || left.index - right.index);
     const latest = list[list.length - 1];
-    const same = (left, right) => JSON.stringify(left) === JSON.stringify(right);
+    
     let since = latest.t;
-    for (let i = list.length - 2; i >= 0 && same(list[i].v, latest.v); i -= 1) since = list[i].t;
+    for (let i = list.length - 2; i >= 0 && isEqual(list[i].v, latest.v); i -= 1) since = list[i].t;
     state[attribute] = { value: latest.v, t: latest.t, since };
   }
   return state;
