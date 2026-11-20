@@ -92,7 +92,7 @@ const polaritySide = (polarity) => {
  */
 export function evidenceProjection(web) {
   return freezeList(web.query().map((observation) => {
-    const storage = Object.freeze({
+    const custody = Object.freeze({
       provider: observation.source.provider,
       resource: observation.source.resource,
     });
@@ -105,14 +105,14 @@ export function evidenceProjection(web) {
       witness: Object.freeze({
         kind: "flatfile.drew-relation-occurrence",
         occurrence: observation.address,
-        custody: storage,
+        custody,
         ...(Object.hasOwn(observation, "evidence") ? { evidence: observation.evidence } : {}),
       }),
     });
     return Object.freeze({
       semanticIdentity: relationKey(observation),
       occurrenceIdentity: observation.address,
-      custody: storage,
+      custody,
       rowId: identifyContentAddressedRow({ row }).identity,
       row,
     });

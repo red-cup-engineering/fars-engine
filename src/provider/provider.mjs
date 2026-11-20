@@ -6,7 +6,7 @@ function established(result) {
   throw new TypeError(`flatfile type declaration refused: ${result.refusal.message}`);
 }
 
-function assertValidated(type, value, label) {
+function assertAdmitted(type, value, label) {
   const result = admit(type, value);
   if (result.ok) return result.value;
   throw new TypeError(`${label} ${result.refusal.issues.map((issue) => `${issue.path || "/"} ${issue.message}`).join("; ")}`);
@@ -92,7 +92,7 @@ export function defineProvider({ id, observe }) {
 }
 
 export function validateResourceGraph(value, label = "resource graph") {
-  assertValidated(resourceGraphType, value, label);
+  assertAdmitted(resourceGraphType, value, label);
   const resource = value.resource;
   const focus = value.focus ?? resource;
   const observedAt = value.observedAt;
@@ -116,7 +116,7 @@ export function validateResourceGraph(value, label = "resource graph") {
 }
 
 export function validateProviderOutcome(value, providerId) {
-  assertValidated(providerOutcomeType, value, `${providerId} outcome`);
+  assertAdmitted(providerOutcomeType, value, `${providerId} outcome`);
   const diagnostics = value.diagnostics ?? [];
   return Object.freeze({
     resources: Object.freeze(value.resources.map((resource, index) => validateResourceGraph(resource, `${providerId}.resources[${index}]`))),

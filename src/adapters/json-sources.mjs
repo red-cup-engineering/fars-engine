@@ -1,4 +1,4 @@
-import { validateSourceSelections as sourceSelections, readPinnedTextSources } from "./pinned-sources.mjs";
+import { admitSourceSelections as sourceSelections, readPinnedTextSources } from "./pinned-sources.mjs";
 import { cell } from "@red-cup-engineering/signcell";
 import { parseJsonValue } from "@red-cup-engineering/json-engine/parse-json-value";
 import { makeCell } from "../kernel/cells.mjs";

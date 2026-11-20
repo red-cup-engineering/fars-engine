@@ -8,7 +8,7 @@ function established(result) {
   throw new TypeError(`flatfile type declaration refused: ${result.refusal.message}`);
 }
 
-function assertValidated(type, value, label) {
+function assertAdmitted(type, value, label) {
   const result = admit(type, value);
   if (result.ok) return result.value;
   throw new TypeError(`${label} ${result.refusal.issues.map((issue) => `${issue.path || "/"} ${issue.message}`).join("; ")}`);
@@ -79,14 +79,14 @@ const inspectResourceOutputType = established(defineType({
 export const inspectFlatfileResourceOutputSchema = inspectResourceOutputType.schema;
 
 /** Admit and freeze one serializable flatfile inspection request. */
-export function validateFlatfileInspectionRequest(input) {
+export function admitFlatfileInspectionRequest(input) {
   let snapshot;
   try {
     snapshot = JSON.parse(canonicalJson(input));
   } catch (error) {
     throw new TypeError(`inspect-resource input must be serializable: ${error.message}`);
   }
-  assertValidated(inspectResourceInputType, snapshot, "inspect-resource input");
+  assertAdmitted(inspectResourceInputType, snapshot, "inspect-resource input");
   return Object.freeze({
     fernPath: snapshot.fernPath,
     resource: Object.freeze({ path: snapshot.resource.path, content: snapshot.resource.content }),
@@ -104,10 +104,10 @@ function selectedProviders(input) {
     const defined = defineProvider({ id: provider, observe: () => outcome });
     if (ids.has(defined.id)) throw new TypeError(`duplicate provider id: ${defined.id}`);
     ids.add(defined.id);
-    const validated = validateProviderOutcome(outcome, `inspect-resource observations[${index}]`);
-    const selected = Object.freeze(validated.resources.filter((graph) => graph.resource === input.resource.path));
+    const admitted = validateProviderOutcome(outcome, `inspect-resource observations[${index}]`);
+    const selected = Object.freeze(admitted.resources.filter((graph) => graph.resource === input.resource.path));
     selectedCount += selected.length;
-    return defineProvider({ id: defined.id, observe: () => Object.freeze({ resources: selected, diagnostics: validated.diagnostics }) });
+    return defineProvider({ id: defined.id, observe: () => Object.freeze({ resources: selected, diagnostics: admitted.diagnostics }) });
   });
   if (selectedCount === 0) {
     throw new TypeError(`inspect-resource: no provider graph matches ${input.resource.path}`);
@@ -135,6 +135,6 @@ export async function composeFlatfileInspectionEvidence(snapshot) {
  */
 export function assembleFlatfileInspection(inspection, { composition, occurrences }) {
   const output = Object.freeze({ inspection, composition, occurrences });
-  assertValidated(inspectResourceOutputType, output, "inspect-resource output");
+  assertAdmitted(inspectResourceOutputType, output, "inspect-resource output");
   return output;
 }

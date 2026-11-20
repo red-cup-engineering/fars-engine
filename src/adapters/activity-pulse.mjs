@@ -49,7 +49,7 @@ export function activityPulseResourceGraph(pulse) {
     focus: pulse.colonyActor,
     observedAt,
     cells: Object.freeze(cells),
-    diagnostics: Object.freeze((pulse.refusals ?? []).map((rejection) => Object.freeze({ code: "provider-refusal", message: rejection.reason, domain: rejection.domain }))),
+    diagnostics: Object.freeze((pulse.refusals ?? []).map((refusal) => Object.freeze({ code: "provider-refusal", message: refusal.reason, domain: refusal.domain }))),
   });
 }
 
