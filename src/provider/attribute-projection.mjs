@@ -40,13 +40,13 @@ export function attributePredicate(key) {
  * unlike String(value), distinct values cannot collapse accidentally.
  */
 export function encodeJsonGraphValue(value) {
-  const bytes = Buffer.from(JSON.stringify(canonicalJson(value)), "utf8");
+  const bytes = Buffer.from(JSON.stringify(sortedGraphJsonValue(value)), "utf8");
   return `${FARS_JSON_VALUE_NAMESPACE}${bytes.toString("base64url")}`;
 }
 
 // Keep the existing JSON-literal wire format, while using SignCell's admitted
 // finite-number carrier. Historical ledger/record identity is not rewritten.
-function canonicalJson(value) {
+function sortedGraphJsonValue(value) {
   const copied = canonicalCarrier(value);
   const sort = item => {
     if (Array.isArray(item)) return item.map(sort);
@@ -79,7 +79,7 @@ export function decodeJsonGraphValue(value) {
 export function projectAttributeCells({ subject, resource, attributes }) {
   nonEmptyString(subject, "attribute subject");
   nonEmptyString(resource, "attribute resource");
-  const canonicalAttributes = plainRecord(canonicalJson(plainRecord(attributes, "attributes")), "canonical attributes");
+  const canonicalAttributes = plainRecord(sortedGraphJsonValue(plainRecord(attributes, "attributes")), "canonical attributes");
 
   const cells = [];
   for (const key of Object.keys(canonicalAttributes)) {
