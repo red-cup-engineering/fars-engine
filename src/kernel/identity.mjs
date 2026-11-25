@@ -1,5 +1,5 @@
-import { canonicalizeSemioticJson } from "@red-cup-engineering/semiotic-content-address-system";
-import { makeNiUri, verifyNiUri } from "@red-cup-engineering/uri-engineering-services-section/ni-uri";
+import { canonicalizeSemioticJson, makeNiUri, verifyNiUri } from "@red-cup-engineering/semiotic-content-address-system";
+
 
 // canonicalizeSemioticJson NFC-normalizes strings and keys, rejects
 // non-safe-integer numbers, and rejects NFC key collisions — but it

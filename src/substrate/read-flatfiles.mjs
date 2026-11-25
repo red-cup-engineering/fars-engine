@@ -1,5 +1,5 @@
+import { sha256Digest } from "@red-cup-engineering/semiotic-content-address-system";
 import { readFile, stat, realpath } from "node:fs/promises";
-import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { walkPosixPaths } from "@red-cup-engineering/computer-filepath-engineering-services-section/walk-posix-paths";
 import { DEFAULT_EXCLUDES } from "./store.mjs";
@@ -63,7 +63,7 @@ export async function loadFlatfiles(root, { excludes = DEFAULT_EXCLUDES, maxDept
           (maxSourceBytes !== undefined && bytes.length > maxSourceBytes)))
         throw new TypeError(`pinned Markdown source changed while reading: ${entry.path}`);
       text = strict ? new TextDecoder("utf-8", { fatal: true }).decode(bytes) : bytes.toString("utf8");
-      revision = `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+      revision = sha256Digest(bytes);
       batchBytes += bytes.length;
     } catch (err) {
       if (strict) throw err;

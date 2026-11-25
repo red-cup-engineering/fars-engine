@@ -1,9 +1,9 @@
+import { sha256Digest } from "@red-cup-engineering/semiotic-content-address-system";
 /**
  * Exact-byte SHA-256 for admitted flatfile sources. File and pure source
  * readers must agree on the same digest of UTF-8 bytes, not JSON semantics,
  * locale-dependent text, or a caller's unverified digest label.
  */
-import { createHash } from 'node:crypto';
 
 export const MAX_SOURCE_BYTES = 1_048_576;
 export const MAX_BATCH_BYTES = 16 * MAX_SOURCE_BYTES;
@@ -37,7 +37,7 @@ export function exactSourceRevision(source) {
   const bytes = typeof source === 'string' ? Buffer.from(source, 'utf8') : source;
   if (bytes.byteLength > MAX_SOURCE_BYTES)
     throw new RangeError('JSON source exceeds its 1 MiB byte budget');
-  return `sha256:${createHash('sha256').update(bytes).digest('hex')}`;
+  return sha256Digest(bytes);
 }
 
 /** Refuse oversized pure source selections before any Cell or graph projection. */

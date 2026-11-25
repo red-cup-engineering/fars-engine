@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { sha256Digest } from "@red-cup-engineering/semiotic-content-address-system";
 
 const MAX_OCCURRENCES = 4096;
 const SHA256 = /^sha256:[0-9a-f]{64}$/u;
@@ -30,7 +30,7 @@ export function jsonLinesOccurrences(source) {
       lineNumber: occurrences.length + 1,
       byteOffset,
       byteLength: rowBytes.byteLength,
-      rowContentDigest: 'sha256:' + createHash('sha256').update(rowBytes).digest('hex'),
+      rowContentDigest: sha256Digest(rowBytes),
       text: row,
     });
     occurrences.push(occurrence);

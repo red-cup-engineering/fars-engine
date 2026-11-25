@@ -1,10 +1,10 @@
+import { gitBlobIdOf } from "@red-cup-engineering/git-engine/git-object-id";
 import { execGitSync } from "@red-cup-engineering/git-engine/git-process";
 /** Read original committed Git objects from unfinished branch/archive refs.
  * Acquisition only: the existing FARS JSON lifecycle and SignCell own projection.
  * A ref's name is not evidence of archival standing or executed consumers.
  */
 
-import { createHash } from 'node:crypto';
 import { realpathSync } from 'node:fs';
 import { extname } from 'node:path';
 import {
@@ -109,8 +109,7 @@ export function readGitRefSourceSnapshot({ root, ref, prefixes = [] }) {
         end >= raw.length || raw[end] !== 10)
       throw new TypeError('Git source blob differs from native batch identity');
     const bytes = raw.subarray(start, end);
-    const objectHeader = Buffer.from('blob ' + size + String.fromCharCode(0), 'ascii');
-    if (createHash(format).update(objectHeader).update(bytes).digest('hex') !== header[1])
+    if (gitBlobIdOf(bytes, format) !== header[1])
       throw new TypeError('Git source has incorrect native object hash');
     files.push(Object.freeze({ path: selected[index].path,
       revision: exactSourceRevision(bytes), text: decoder.decode(bytes) }));

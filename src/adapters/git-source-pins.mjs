@@ -1,3 +1,4 @@
+import { gitBlobIdOf } from "@red-cup-engineering/git-engine/git-object-id";
 import { execGitSync } from "@red-cup-engineering/git-engine/git-process";
 /**
  * Deterministic, effectful Git-tree source selector for the original FARS
@@ -6,7 +7,6 @@ import { execGitSync } from "@red-cup-engineering/git-engine/git-process";
  * This makes no merge, Work, deployment or usage claim.
  */
 
-import { createHash } from "node:crypto";
 import { lstatSync, readFileSync, realpathSync } from "node:fs";
 import { extname, resolve } from "node:path";
 import { exactSourceRevision, MAX_BATCH_BYTES, MAX_SOURCE_BYTES, REPOSITORY_TEXT_EXTENSIONS, isGeneratedHostStatePath, isJsonResourceSourcePath } from "../provider/exact-source-revision.mjs";
@@ -70,8 +70,7 @@ export function gitTrackedLifecyclePins({ root, prefixes = [] }) {
     total += bytes.length;
     if (total > MAX_BATCH_BYTES || selections.length >= 4096)
       throw new RangeError("Git source exceeds bounded lifecycle selection");
-    const preimage = Buffer.from("blob " + bytes.length + String.fromCharCode(0), "utf8");
-    const actualGitBlob = createHash(format).update(preimage).update(bytes).digest("hex");
+    const actualGitBlob = gitBlobIdOf(bytes, format);
     if (actualGitBlob !== match[3])
       throw new TypeError(`Git source differs from immutable HEAD: ${sourcePath}`);
     selections.push(Object.freeze({ path: sourcePath, digest: exactSourceRevision(bytes) }));
